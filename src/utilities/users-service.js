@@ -66,6 +66,9 @@ export async function login(credentials) {
 
     //save the token, return the user
     localStorage.setItem("token", token)
+
+
+
     return getUser()
 }
 
@@ -79,7 +82,7 @@ export async function createNote(noteData) {
     return await usersAPI.createNote(noteData)
 }
 
-export function getMyNotes() {
+export async function getMyNotes() {
    return usersAPI.getMyNotes()
 }
 

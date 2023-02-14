@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import * as usersService from '../../utilities/users-service';
  
-export default function LoginForm({ setUser }) {
+export default function LoginForm({ setUser, setMyNotes }) {
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -22,8 +22,11 @@ export default function LoginForm({ setUser }) {
       // will resolve to the user object included in the
       // payload of the JSON Web Token (JWT)
       const user = await usersService.login(credentials);
-      console.log("UserData: ", user)
+      const notes = await usersService.getMyNotes()
+
+      //console.log("UserData: ", user)
       setUser(user);
+      setMyNotes(notes)
     } catch {
       setError('Log In Failed - Try Again');
     }

@@ -31,27 +31,27 @@ export default function App() {
   // console.log("Initial getting from DB: " + initialNotesList)
   //setMyNotes([notesFromDB])
 
-  let initialNotesList = []
+  //let initialNotesList = []
   //getMyNotes from database
   //const notesFromDB =  getMyNotes()
   //notesFromDB.json()
     //.then(res => res.json())
-  getMyNotes()
-    .then((notes) => {
-        console.log("Notes: " + notes)
-        initialNotesList = notes
-        //////////Have the correct array of notes, promise chain issue.......
-        console.log(initialNotesList)
-   })
-    .catch(error => {
-      //initialNotesList = []
-      console.error(error)
-    })
+  // getMyNotes()
+  //   .then((notes) => {
+  //       console.log("Notes: " + notes)
+  //       initialNotesList = notes
+  //       //////////Have the correct array of notes, promise chain issue.......
+  //       console.log(initialNotesList)
+  //  })
+  //   .catch(error => {
+  //     //initialNotesList = []
+  //     console.error(error)
+  //   })
   
 
     //////////This is executing before the promise resolves......
-  console.log("Initial before useState: " + initialNotesList)
-  const [myNotes, setMyNotes] = useState(initialNotesList)
+  //console.log("Initial before useState: " + initialNotesList)
+  const [myNotes, setMyNotes] = useState([])
 
   console.log("MyNotes: " +myNotes)
 
@@ -68,7 +68,7 @@ export default function App() {
           </Routes>
         </>
         :
-        <AuthPage setUser={setUser}/>
+        <AuthPage setUser={setUser} setMyNotes={setMyNotes}/>
       }
 
     </main>
