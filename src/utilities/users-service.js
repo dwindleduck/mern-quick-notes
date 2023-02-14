@@ -74,3 +74,12 @@ export function checkToken() {
     return usersAPI.checkToken()
         .then(dateString => new Date(dateString))
 }
+
+export async function createNote(noteData) {
+    return await usersAPI.createNote(noteData)
+}
+
+export function getMyNotes() {
+   return usersAPI.getMyNotes()
+}
+

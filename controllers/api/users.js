@@ -1,4 +1,5 @@
 const User = require("../../models/user")
+const Note = require("../../models/note")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 
@@ -54,4 +55,28 @@ function checkToken(req, res) {
     res.json(req.exp)
 }
 
-module.exports = {create, login, checkToken}
+async function createNote(req, res, next) {
+    //console.log(req.body)
+    try {
+        // Add the note to the database
+        const note = await Note.create(req.body);
+        //console.log(note)
+        res.json(note)
+      } catch (error) {
+        console.error(error)
+        res.status(400).json(error);
+      }
+}
+
+async function getMyNotes(req, res, next) {
+    console.log("Inside Controller")
+
+    const myNotes = await Note.find({user: {$eq: req.user._id}})
+
+    //console.log(myNotes)
+
+    res.json(myNotes)
+
+}
+
+module.exports = {create, login, checkToken, createNote, getMyNotes}

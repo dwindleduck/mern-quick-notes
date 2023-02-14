@@ -5,26 +5,66 @@ import AuthPage from "../AuthPage/AuthPage"
 import NewOrderPage from "../NewOrderPage/NewOrderPage";
 import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage";
 import './App.css';
-import { getUser } from "../../utilities/users-service"
+import { getUser, getMyNotes } from "../../utilities/users-service"
+import MyNotes from "../MyNotes/MyNotes";
+
+
+
+
+  // async function getNotesFromDB() {
+  //   try {
+  //     const notesFromDB = await getMyNotes()
+  //     console.log("notesFromDB: " + notesFromDB)
+  //     return notesFromDB
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
 
 
 export default function App() {
   const [user, setUser] = useState(getUser())
-  //const [user, setUser] = useState(null)
 
+
+  //initialNotesList = getNotesFromDB()
+  // console.log("Initial getting from DB: " + initialNotesList)
+  //setMyNotes([notesFromDB])
+
+  let initialNotesList = []
+  //getMyNotes from database
+  //const notesFromDB =  getMyNotes()
+  //notesFromDB.json()
+    //.then(res => res.json())
+  getMyNotes()
+    .then((notes) => {
+        console.log("Notes: " + notes)
+        initialNotesList = notes
+        //////////Have the correct array of notes, promise chain issue.......
+        console.log(initialNotesList)
+   })
+    .catch(error => {
+      //initialNotesList = []
+      console.error(error)
+    })
+  
+
+    //////////This is executing before the promise resolves......
+  console.log("Initial before useState: " + initialNotesList)
+  const [myNotes, setMyNotes] = useState(initialNotesList)
+
+  console.log("MyNotes: " +myNotes)
 
   return (
     <main className="App">
-     
-     
       {/* terinary for conditional rendering */}
       { user ?
         <>
           <NavBar user={user} setUser={setUser}/>
           <Routes>
-            <Route path="/" element="" />
-            <Route path="/orders/new" element={<NewOrderPage />}/>
-            <Route path="/orders" element={<OrderHistoryPage />}/>
+            <Route path="/" element={<MyNotes user={user} myNotes={myNotes} setMyNotes={setMyNotes} />} />
+            {/* <Route path="/orders/new" element={<NewOrderPage />}/>
+            <Route path="/orders" element={<OrderHistoryPage />}/> */}
           </Routes>
         </>
         :

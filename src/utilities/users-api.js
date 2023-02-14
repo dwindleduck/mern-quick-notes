@@ -37,3 +37,10 @@ export async function login(credentials) {
 export async function checkToken() {
     return sendRequest(BASE_URL + "/check-token")
 }
+
+export async function createNote(noteData) {
+    return sendRequest(BASE_URL + "/create-note", "POST", noteData)
+}
+export async function getMyNotes() {
+    return sendRequest(BASE_URL + "/get-my-notes")
+}

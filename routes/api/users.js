@@ -17,6 +17,10 @@ router.post("/login", usersCtrl.login)
 // router.get("/check-token", usersCtrl.checkToken)
 router.get("/check-token", ensureLoggedIn, usersCtrl.checkToken)
 
+//Create Note
+router.post("/create-note", ensureLoggedIn, usersCtrl.createNote)
 
+//Get MyNotes
+router.get("/get-my-notes", ensureLoggedIn, usersCtrl.getMyNotes)
 
 module.exports = router
